@@ -26,4 +26,4 @@
 
 矩形の中をランダムに移動し続けます。
 
-<img src="https://github.com/XJINE/Unity3D_ObjectController/blob/master/Screenshot/screenshot_randomwalkerinrectangle" width="320px">
+<img src="https://github.com/XJINE/Unity3D_ObjectController/blob/master/Screenshot/screenshot_randomwalkerinrectangle.gif" width="320px">
