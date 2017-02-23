@@ -4,7 +4,7 @@
 
 ## 実装された動き
 
-## KeyboardController
+### KeyboardController
 
 キーボードでオブジェクトを動かします。
 
