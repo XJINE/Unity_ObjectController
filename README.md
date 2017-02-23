@@ -4,6 +4,10 @@
 
 ## 実装された動き
 
+## KeyboardController
+
+キーボードでオブジェクトを動かします。
+
 ### CheckPointWalker
 
 指定した座標を順に移動します。
