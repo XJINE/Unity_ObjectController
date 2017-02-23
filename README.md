@@ -8,22 +8,22 @@
 
 指定した座標を順に移動します。
 
-![](https://github.com/XJINE/Unity3D_ObjectController/blob/master/screenshot_checkpointwalker.gif)
+<img src="https://github.com/XJINE/Unity3D_ObjectController/Screenshot/blob/master/screenshot_checkpointwalker.gif" width="320px">
 
 ### RandomRotator
 
 ランダムに回転し続けます。
 
-![](https://github.com/XJINE/Unity3D_ObjectController/blob/master/screenshot_randomrotator.gif)
+<img src="https://github.com/XJINE/Unity3D_ObjectController/Screenshot/blob/master/screenshot_randomrotator.gif" width="320px">
 
 ### PingPongWalkerInSphere
 
 球状の中をランダムに跳ね返り続けます。
 
-![](https://github.com/XJINE/Unity3D_ObjectController/blob/master/screenshot_pingpongwalkerinsphere.gif)
+<img src="https://github.com/XJINE/Unity3D_ObjectController/Screenshot/blob/master/screenshot_pingpongwalkerinsphere.gif" width="320px">
 
 ## RandomWalkerInRectangle
 
 矩形の中をランダムに移動し続けます。
 
-![](https://github.com/XJINE/Unity3D_ObjectController/blob/master/screenshot_randomwalkerinrectangle.gif)
+<img src="https://github.com/XJINE/Unity3D_ObjectController/Screenshot/blob/master/screenshot_randomwalkerinrectangle" width="320px">
