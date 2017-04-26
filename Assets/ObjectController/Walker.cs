@@ -18,7 +18,7 @@ namespace ObjectController
         /// <summary>
         /// 移動速度。
         /// </summary>
-        public float moveSpeed = 1;
+        public float moveSpeed = 10;
 
         /// <summary>
         /// 目的地の方を向くかどうか。
@@ -28,7 +28,12 @@ namespace ObjectController
         /// <summary>
         /// 回転速度。
         /// </summary>
-        public float rotationSpeed = 1;
+        public float rotationSpeed = 10;
+
+        /// <summary>
+        /// 次の目的地に行くかどうか。
+        /// </summary>
+        public bool goToNextTarget = true;
 
         /// <summary>
         /// 目的地に到着したときのイベントハンドラ。
@@ -38,6 +43,17 @@ namespace ObjectController
         #endregion Field
 
         #region Method
+
+        /// <summary>
+        /// 開始時に呼び出されます。
+        /// </summary>
+        protected virtual void Start()
+        {
+            if (this.lookAtTarget)
+            {
+                base.transform.LookAt(this.target);
+            }
+        }
 
         /// <summary>
         /// 更新時に呼び出されます。
@@ -58,12 +74,19 @@ namespace ObjectController
         /// </returns>
         protected virtual bool Walk()
         {
-            Vector3 position = Vector3.MoveTowards
-                (this.transform.position, this.target, Time.deltaTime * this.moveSpeed);
+            Vector3 currentPosition = base.transform.position;
 
-            if (this.lookAtTarget)
+            if (currentPosition == this.target && this.goToNextTarget)
             {
-                Vector3 direction   = this.target - position;
+                SetNextTarget();
+            }
+
+            Vector3 nextPosition = Vector3.MoveTowards
+                (currentPosition, this.target, Time.deltaTime * this.moveSpeed);
+
+            if (this.lookAtTarget && this.target != nextPosition)
+            {
+                Vector3 direction = this.target - nextPosition;
                 Quaternion rotation = Quaternion.LookRotation(direction);
 
                 base.transform.rotation = Quaternion.Slerp(base.transform.rotation,
@@ -71,9 +94,9 @@ namespace ObjectController
                                                            Time.deltaTime * this.rotationSpeed);
             }
 
-            base.transform.position = position;
+            base.transform.position = nextPosition;
 
-            return position == this.target;
+            return nextPosition == this.target && currentPosition != this.target;
         }
 
         /// <summary>
@@ -83,6 +106,14 @@ namespace ObjectController
         protected void Arrived()
         {
             this.arrivedEventHandler.Invoke();
+        }
+
+        /// <summary>
+        /// 次のターゲットを設定します。
+        /// </summary>
+        protected virtual void SetNextTarget()
+        {
+            // Nothing to do.
         }
 
         #endregion Method
