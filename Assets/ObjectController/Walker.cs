@@ -109,11 +109,24 @@ namespace ObjectController
         }
 
         /// <summary>
-        /// 次のターゲットを設定します。
+        /// 次のターゲットの座標を設定します。
         /// </summary>
-        protected virtual void SetNextTarget()
+        protected void SetNextTarget()
         {
-            // Nothing to do.
+            this.target = GetNextTarget();
+        }
+
+        /// <summary>
+        /// 次のターゲットの座標を取得します。
+        /// </summary>
+        /// <returns>
+        /// 次のターゲットの座標。
+        /// </returns>
+        protected virtual Vector3 GetNextTarget()
+        {
+            // この Class ではターゲットを更新しません。
+
+            return this.target;
         }
 
         #endregion Method

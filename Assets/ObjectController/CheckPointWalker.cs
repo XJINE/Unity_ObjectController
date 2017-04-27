@@ -45,28 +45,11 @@ namespace ObjectController
         /// </summary>
         protected override void Start()
         {
-            base.Start();
             base.arrivedEventHandler.AddListener(this.CheckArrivedLastCheckPoint);
-        }
-
-        /// <summary>
-        /// 更新時に呼び出されます。
-        /// </summary>
-        protected override void Update()
-        {
-            if (this.checkPoints == null)
-            {
-                return;
-            }
-
-            if (this.checkPointIndex >= this.checkPoints.Count)
-            {
-                this.checkPointIndex = this.checkPointIndex % this.checkPoints.Count;
-            }
 
             base.target = this.checkPoints[this.checkPointIndex];
 
-            base.Update();
+            base.Start();
         }
 
         /// <summary>
@@ -95,11 +78,21 @@ namespace ObjectController
         }
 
         /// <summary>
-        /// 次のターゲットを設定します。
+        /// 次のターゲットの座標を取得します。
         /// </summary>
-        protected override void SetNextTarget()
+        /// <returns>
+        /// 次のターゲットの座標。
+        /// </returns>
+        protected override Vector3 GetNextTarget()
         {
             this.checkPointIndex = this.checkPointIndex + 1;
+
+            if (this.checkPointIndex >= this.checkPoints.Count)
+            {
+                this.checkPointIndex = this.checkPointIndex % this.checkPoints.Count;
+            }
+
+            return this.checkPoints[this.checkPointIndex];
         }
 
         /// <summary>
@@ -121,6 +114,7 @@ namespace ObjectController
                 {
                     base.transform.position = this.checkPoints[0];
 
+                    this.checkPointIndex = 0;
                     SetNextTarget();
 
                     if (base.lookAtTarget)

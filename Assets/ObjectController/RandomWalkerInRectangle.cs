@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// 直方体の中をランダムに移動させます。
     /// </summary>
-    public class RandomWalkerInRectangle : MonoBehaviour
+    public class RandomWalkerInRectangle : Walker
     {
         #region Field
 
@@ -19,16 +19,6 @@ namespace ObjectController
         /// </summary>
         public Vector3 moveRangeMax = Vector3.one * 10f;
 
-        /// <summary>
-        /// 移動速度。
-        /// </summary>
-        public float moveSpeed = 5;
-
-        /// <summary>
-        /// 移動先。
-        /// </summary>
-        private Vector3 targetPosition;
-
         #endregion Field
 
         #region Method
@@ -36,24 +26,10 @@ namespace ObjectController
         /// <summary>
         /// 開始時に呼び出されます。
         /// </summary>
-        protected virtual void Start()
+        protected override void Start()
         {
-            UpdateTargetPosition();
-        }
-
-        /// <summary>
-        /// 更新時に呼び出されます。
-        /// </summary>
-        protected virtual void Update()
-        {
-            this.transform.position = Vector3.MoveTowards(this.transform.position,
-                                                          this.targetPosition,
-                                                          Time.deltaTime * this.moveSpeed);
-
-            if (this.transform.position == this.targetPosition)
-            {
-                UpdateTargetPosition();
-            }
+            SetNextTarget();
+            base.Start();
         }
 
         /// <summary>
@@ -73,11 +49,14 @@ namespace ObjectController
         }
 
         /// <summary>
-        /// 進行方向を決定します。
+        /// 次のターゲットの座標を取得します。
         /// </summary>
-        protected virtual void UpdateTargetPosition()
+        /// <returns>
+        /// 次のターゲットの座標。
+        /// </returns>
+        protected override Vector3 GetNextTarget()
         {
-            this.targetPosition = new Vector3()
+            return new Vector3()
             {
                 x = Random.Range(this.moveRangeMin.x, this.moveRangeMax.x),
                 y = Random.Range(this.moveRangeMin.y, this.moveRangeMax.y),
