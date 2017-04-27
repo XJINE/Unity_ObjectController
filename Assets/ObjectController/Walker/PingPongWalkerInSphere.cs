@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// 球の中をランダムに跳ね返りながら移動させます。
     /// </summary>
-    public class PingPongWalkerInSphere : MonoBehaviour
+    public class PingPongWalkerInSphere : Walker
     {
         #region Field
 
@@ -19,16 +19,6 @@ namespace ObjectController
         /// </summary>
         public float moveRangeRadius = 5;
 
-        /// <summary>
-        /// 移動速度。
-        /// </summary>
-        public float moveSpeed = 5;
-
-        /// <summary>
-        /// 移動先。
-        /// </summary>
-        protected Vector3 targetPosition;
-
         #endregion Field
 
         #region Method
@@ -36,24 +26,10 @@ namespace ObjectController
         /// <summary>
         /// 開始時に呼び出されます。
         /// </summary>
-        protected virtual void Awake()
+        protected override void Start()
         {
-            UpdateTargetPosition();
-        }
-
-        /// <summary>
-        /// 更新時に呼び出されます。
-        /// </summary>
-        protected virtual void Update()
-        {
-            base.transform.position = Vector3.MoveTowards(base.transform.position,
-                                                          this.targetPosition,
-                                                          Time.deltaTime * this.moveSpeed);
-
-            if (this.transform.position == this.targetPosition)
-            {
-                UpdateTargetPosition();
-            }
+            SetNextTarget();
+            base.Start();
         }
 
         /// <summary>
@@ -71,11 +47,14 @@ namespace ObjectController
         }
 
         /// <summary>
-        /// 進行方向を決定します。
+        /// 次のターゲットの座標を取得します。
         /// </summary>
-        protected virtual void UpdateTargetPosition()
+        /// <returns>
+        /// 次のターゲットの座標。
+        /// </returns>
+        protected override Vector3 GetNextTarget()
         {
-            this.targetPosition = this.moveOrigin + Random.onUnitSphere * this.moveRangeRadius;
+            return this.moveOrigin + Random.onUnitSphere * this.moveRangeRadius;
         }
 
         #endregion Method
