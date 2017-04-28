@@ -5,19 +5,9 @@ namespace ObjectController
     /// <summary>
     /// ランダムに回転します。
     /// </summary>
-    public class RandomRotator : MonoBehaviour
+    public class RandomAxisRotator : AxisRotator
     {
         #region Field
-
-        /// <summary>
-        /// 回転する軸。
-        /// </summary>
-        protected Vector3 rotateAxis;
-
-        /// <summary>
-        /// 回転する速度(角度)。
-        /// </summary>
-        public float rotateSpeedDegree = 1;
 
         /// <summary>
         /// 同じ方向に回転している時間。
@@ -44,7 +34,7 @@ namespace ObjectController
         /// <summary>
         /// 更新時に呼び出されます。
         /// </summary>
-        protected virtual void Update()
+        protected override void Update()
         {
             this.rotateTimeSecCounter += Time.deltaTime;
 
@@ -54,9 +44,24 @@ namespace ObjectController
                 UpdateRotateAxis();
             }
 
+            base.Update();
+        }
+
+        /// <summary>
+        /// 回転します。
+        /// </summary>
+        /// <returns>
+        /// 回転した量(degree)。
+        /// </returns>
+        protected override float Rotate()
+        {
+            float rotateAngleDegree = base.rotateSpeed * Time.deltaTime;
+
             base.transform.RotateAround(base.transform.position,
                                         this.rotateAxis,
-                                        this.rotateSpeedDegree);
+                                        rotateAngleDegree);
+
+            return rotateAngleDegree;
         }
 
         /// <summary>
@@ -64,9 +69,8 @@ namespace ObjectController
         /// </summary>
         protected virtual void UpdateRotateAxis()
         {
-            this.rotateAxis = new Vector3(Random.value, Random.value, Random.value);
+            base.rotateAxis = new Vector3(Random.value, Random.value, Random.value);
         }
-
 
         #endregion Method
     }

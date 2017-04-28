@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// 軸を基準に回転させます。
     /// </summary>
-    public class AxisRotator : MonoBehaviour
+    public class AxisRotator : Rotator
     {
         #region Field
 
@@ -14,21 +14,22 @@ namespace ObjectController
         /// </summary>
         public Vector3 rotateAxis = Vector3.up;
 
-        /// <summary>
-        /// 回転する速度(角度)。
-        /// </summary>
-        public float rotateSpeedDegree = 1;
-
         #endregion Field
 
         /// <summary>
-        /// 更新時に呼び出されます。
+        /// 回転します。
         /// </summary>
-        protected virtual void Update()
+        /// <returns>
+        /// 回転した角度(degree)。
+        /// </returns>
+        protected override float Rotate()
         {
+            float rotateAngleDegree = base.rotateSpeed * Time.deltaTime;
+
             base.transform.RotateAround(base.transform.position,
                                         this.rotateAxis,
-                                        this.rotateSpeedDegree);
+                                        rotateAngleDegree);
+            return rotateAngleDegree;
         }
     }
 }
