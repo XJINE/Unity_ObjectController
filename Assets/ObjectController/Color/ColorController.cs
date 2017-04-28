@@ -10,11 +10,6 @@ namespace ObjectController
         #region Field
 
         /// <summary>
-        /// 共有される MaterialPropertyBlock.
-        /// </summary>
-        protected static MaterialPropertyBlock SharedMaterialPropertyBlock = new MaterialPropertyBlock();
-
-        /// <summary>
         /// 設定する色。
         /// </summary>
         public Color color;
@@ -24,6 +19,11 @@ namespace ObjectController
         /// </summary>
         protected new Renderer renderer;
 
+        /// <summary>
+        /// MaterialPropertyBlock.
+        /// </summary>
+        protected MaterialPropertyBlock materialPropertyBlock;
+
         #endregion Field
 
         /// <summary>
@@ -32,6 +32,8 @@ namespace ObjectController
         protected virtual void Start()
         {
             this.renderer = base.GetComponent<Renderer>();
+            this.materialPropertyBlock = new MaterialPropertyBlock();
+
             SetColor(this.color);
         }
 
@@ -43,11 +45,9 @@ namespace ObjectController
         /// </param>
         public virtual void SetColor(Color color)
         {
-            this.renderer.GetPropertyBlock(SharedMaterialPropertyBlock);
-
-            ColorController.SharedMaterialPropertyBlock.SetColor("_Color", color);
-
-            this.renderer.SetPropertyBlock(ColorController.SharedMaterialPropertyBlock);
+            this.renderer.GetPropertyBlock(this.materialPropertyBlock);
+            this.materialPropertyBlock.SetColor("_Color", this.color);
+            this.renderer.SetPropertyBlock(this.materialPropertyBlock);
         }
     }
 }

@@ -39,11 +39,6 @@ namespace ObjectController
         public float lerpDurationSec = 3f;
 
         /// <summary>
-        /// Lerp して変化するときの時間のカウンタ。
-        /// </summary>
-        protected float lerpDurationSecCounter = 0;
-
-        /// <summary>
         /// Lerp を開始するときの色。
         /// </summary>
         protected Color lerpStartColor;
@@ -63,6 +58,7 @@ namespace ObjectController
         protected override void Start()
         {
             base.color = this.colors[this.colorIndex];
+            base.Start();
         }
 
         /// <summary>
@@ -118,22 +114,28 @@ namespace ObjectController
         /// </returns>
         protected virtual IEnumerator SetNextColorLerp()
         {
-            this.lerpDurationSecCounter += Time.deltaTime;
-            float lerpRatio = Mathf.Min(1, this.lerpDurationSecCounter / this.lerpDurationSec);
+            float lerpDurationTimeSecCounter = 0;
+            float lerpRatio = 0;
 
-            if (lerpRatio == 1)
+            while (true)
             {
-                this.lerpDurationSecCounter = 0;
-                yield break;
+                lerpDurationTimeSecCounter += Time.deltaTime;
+
+                lerpRatio = Mathf.Min(1, lerpDurationTimeSecCounter / this.lerpDurationSec);
+
+                if (lerpRatio == 1)
+                {
+                    yield break;
+                }
+
+                this.color = Color.Lerp(this.lerpStartColor, this.lerpEndColor, lerpRatio);
+
+                base.SetColor(this.color);
+
+                // 1 フレームに 1 回だけ実行するようにします。
+
+                yield return new WaitForEndOfFrame();
             }
-
-            this.color = Color.Lerp(this.lerpStartColor, this.lerpEndColor, lerpRatio);
-
-            base.SetColor(this.color);
-
-            // Go to nex update.
-
-            yield return null;
         }
 
         #endregion Method
