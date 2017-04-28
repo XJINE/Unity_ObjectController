@@ -22,9 +22,9 @@ namespace ObjectController
         public int checkPointIndex = 0;
 
         /// <summary>
-        /// 次のループへ進むかどうか。
+        /// ループするかどうか。
         /// </summary>
-        public bool goToNextLoop = true;
+        public bool loop = true;
 
         /// <summary>
         /// 最終目的地から最初の目的地まで移動するかどうか。
@@ -105,7 +105,7 @@ namespace ObjectController
             {
                 this.arrivedLastCheckPointEventHandler.Invoke();
 
-                if (!this.goToNextLoop)
+                if (!this.loop)
                 {
                     base.goToNextTarget = false;
                 }

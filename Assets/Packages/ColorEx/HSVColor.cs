@@ -5,6 +5,7 @@ namespace ColorEx
     /// <summary>
     /// HSV で表現される色の構造体です。
     /// </summary>
+    [System.Serializable]
     public struct HSVColor
     {
         #region Field
@@ -101,7 +102,7 @@ namespace ColorEx
         }
 
         /// <summary>
-        /// H 成分を Lerp します。
+        /// Lerp した結果を取得します。
         /// </summary>
         /// <param name="to">
         /// 最終的な値。
@@ -109,15 +110,22 @@ namespace ColorEx
         /// <param name="ratio">
         /// 変化率。
         /// </param>
-        public void Lerp(HSVColor to, float ratio)
+        /// <returns>
+        /// Lerp した結果。
+        /// </returns>
+        public HSVColor Lerp(HSVColor to, float ratio)
         {
-            LerpH(to.h, ratio);
-            LerpH(to.s, ratio);
-            LerpH(to.v, ratio);
+            return new HSVColor()
+            {
+                h = Mathf.Lerp(this.h, to.h, ratio),
+                s = Mathf.Lerp(this.h, to.s, ratio),
+                v = Mathf.Lerp(this.h, to.v, ratio),
+                a = Mathf.Lerp(this.h, to.a, ratio)
+            };
         }
 
         /// <summary>
-        /// H 成分を Lerp します。
+        /// H 成分を Lerp した結果を取得します。
         /// </summary>
         /// <param name="to">
         /// 最終的な値。
@@ -125,13 +133,22 @@ namespace ColorEx
         /// <param name="ratio">
         /// 変化率。
         /// </param>
-        public void LerpH(float to, float ratio)
+        /// <returns>
+        /// Lerp した結果。
+        /// </returns>
+        public HSVColor LerpH(float to, float ratio)
         {
-            this.h = Mathf.Lerp(this.h, to, ratio);
+            return new HSVColor()
+            {
+                h = Mathf.Lerp(this.h, to, ratio),
+                s = this.s,
+                v = this.v,
+                a = this.a
+            };
         }
 
         /// <summary>
-        /// S 成分を Lerp します。
+        /// S 成分を Lerp した結果を取得します。
         /// </summary>
         /// <param name="to">
         /// 最終的な値。
@@ -139,13 +156,22 @@ namespace ColorEx
         /// <param name="ratio">
         /// 変化率。
         /// </param>
-        public void LerpS(float to, float ratio)
+        /// <returns>
+        /// Lerp した結果。
+        /// </returns>
+        public HSVColor LerpS(float to, float ratio)
         {
-            this.s = Mathf.Lerp(this.s, to, ratio);
+            return new HSVColor()
+            {
+                h = this.h,
+                s = Mathf.Lerp(this.s, to, ratio),
+                v = this.v,
+                a = this.a
+            };
         }
 
         /// <summary>
-        /// V 成分を Lerp します。
+        /// V 成分を Lerp した結果を取得します。
         /// </summary>
         /// <param name="to">
         /// 最終的な値。
@@ -153,9 +179,18 @@ namespace ColorEx
         /// <param name="ratio">
         /// 変化率。
         /// </param>
-        public void LerpV(float to, float ratio)
+        /// <returns>
+        /// Lerp した結果。
+        /// </returns>
+        public HSVColor LerpV(float to, float ratio)
         {
-            this.v = Mathf.Lerp(this.v, to, ratio);
+            return new HSVColor()
+            {
+                h = this.h,
+                s = this.s,
+                v = Mathf.Lerp(this.v, to, ratio),
+                a = this.a
+            };
         }
 
         #endregion Method
