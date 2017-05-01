@@ -12,7 +12,17 @@ namespace ObjectController
         /// <summary>
         /// 回転軸。
         /// </summary>
-        public Vector3 rotateAxis = Vector3.up;
+        public Vector3 rotationAxis = Vector3.up;
+
+        /// <summary>
+        /// ローカル座標を基準にした回転かどうか。
+        /// </summary>
+        public bool localPosition = true;
+
+        /// <summary>
+        /// ローカル座標での回転かどうか。
+        /// </summary>
+        public bool localRotation = true;
 
         #endregion Field
 
@@ -26,10 +36,34 @@ namespace ObjectController
         {
             float rotateAngleDegree = base.rotateSpeed * Time.deltaTime;
 
-            base.transform.RotateAround(base.transform.position,
-                                        this.rotateAxis,
+            base.transform.RotateAround(GetRotationPoint(),
+                                        GetRotationAxis(),
                                         rotateAngleDegree);
             return rotateAngleDegree;
+        }
+
+        /// <summary>
+        /// 回転軸の位置を取得します。
+        /// </summary>
+        /// <returns>
+        /// 回転軸の座標(World)。
+        /// </returns>
+        protected virtual Vector3 GetRotationPoint()
+        {
+            return base.transform.position;
+        }
+
+        /// <summary>
+        /// 回転軸を取得します。
+        /// </summary>
+        /// <returns>
+        /// 回転軸。
+        /// </returns>
+        protected virtual Vector3 GetRotationAxis()
+        {
+            return this.localRotation ?
+                   base.transform.localRotation * this.rotationAxis :
+                   this.rotationAxis;
         }
     }
 }

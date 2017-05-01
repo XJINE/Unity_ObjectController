@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace ObjectController
 {
@@ -26,6 +25,11 @@ namespace ObjectController
         /// </summary>
         private float totalRotateAngleDegree = 0;
 
+        /// <summary>
+        /// 回転が完了したときのイベント。
+        /// </summary>
+        public UnityEvent rotatedEventHandler;
+
         #endregion Field
 
         /// <summary>
@@ -33,7 +37,7 @@ namespace ObjectController
         /// </summary>
         protected virtual void Update()
         {
-            UpdateTotalRotateDegree(Rotate());
+            UpdateState(Rotate());
         }
 
         /// <summary>
@@ -53,14 +57,14 @@ namespace ObjectController
         /// <param name="rotateAngleDegree">
         /// 回転した角度(degree)。
         /// </param>
-        protected void UpdateTotalRotateDegree(float rotateAngleDegree)
+        protected void UpdateState(float rotateAngleDegree)
         {
             // 回転速度が変わったら回転量を初期化します。
 
             if (this.rotateSpeed != this.previousRotateSpeed)
             {
                 this.totalRotateAngleDegree = 0;
-                this.previousRotateSpeed = this.rotateSpeed;
+                this.previousRotateSpeed    =  this.rotateSpeed;
             }
 
             this.totalRotateAngleDegree += rotateAngleDegree;
@@ -70,6 +74,7 @@ namespace ObjectController
                 if (360 < this.totalRotateAngleDegree)
                 {
                     this.totalRotateAngleDegree -= 360;
+                    this.rotatedEventHandler.Invoke();
                 }
             }
             else
@@ -77,6 +82,7 @@ namespace ObjectController
                 if (this.totalRotateAngleDegree < -360)
                 {
                     this.totalRotateAngleDegree += 360;
+                    this.rotatedEventHandler.Invoke();
                 }
             }
         }

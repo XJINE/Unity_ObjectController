@@ -19,20 +19,18 @@ namespace ObjectController
         #region Method
 
         /// <summary>
-        /// 回転します。
+        /// 回転軸の位置を取得します。
         /// </summary>
         /// <returns>
-        /// 回転した量(degree)。
+        /// 回転軸の座標(World)。
         /// </returns>
-        protected override float Rotate()
+        protected override Vector3 GetRotationPoint()
         {
-            float rotateAngleDegree = base.rotateSpeed * Time.deltaTime;
-
-            base.transform.RotateAround(this.rotateAxisPosition,
-                                        base.rotateAxis,
-                                        rotateAngleDegree);
-
-            return rotateAngleDegree;
+            return base.localPosition ?
+                   base.transform.parent ?
+                       base.transform.parent.position + this.rotateAxisPosition :
+                       base.transform.position + this.rotateAxisPosition :
+                   this.rotateAxisPosition;
         }
 
         #endregion Method

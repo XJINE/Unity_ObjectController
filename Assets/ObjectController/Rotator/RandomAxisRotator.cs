@@ -58,7 +58,7 @@ namespace ObjectController
             float rotateAngleDegree = base.rotateSpeed * Time.deltaTime;
 
             base.transform.RotateAround(base.transform.position,
-                                        this.rotateAxis,
+                                        this.rotationAxis,
                                         rotateAngleDegree);
 
             return rotateAngleDegree;
@@ -69,7 +69,7 @@ namespace ObjectController
         /// </summary>
         protected virtual void UpdateRotateAxis()
         {
-            base.rotateAxis = new Vector3(Random.value, Random.value, Random.value);
+            base.rotationAxis = new Vector3(Random.value, Random.value, Random.value);
         }
 
         #endregion Method
