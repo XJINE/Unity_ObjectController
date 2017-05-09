@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// 色を段階的に制御します。
     /// </summary>
-    public class ColorShiftControllerAuto : ColorShiftController
+    public class ColorShifterAuto : ColorShifter
     {
         #region Field
 

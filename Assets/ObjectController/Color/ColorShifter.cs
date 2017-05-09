@@ -7,7 +7,7 @@ namespace ObjectController
     /// <summary>
     /// 色を段階的に制御します。
     /// </summary>
-    public class ColorShiftController : ColorController
+    public class ColorShifter : ColorSetter
     {
         // SetNextColor を何かのタイミングで呼び出すたびに色が変わります。
 

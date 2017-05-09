@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// 色を制御します。
     /// </summary>
-    public class ColorController : MonoBehaviour
+    public class ColorSetter : MonoBehaviour
     {
         #region Field
 
