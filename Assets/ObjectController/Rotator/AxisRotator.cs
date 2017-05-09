@@ -15,16 +15,13 @@ namespace ObjectController
         public Vector3 rotationAxis = Vector3.up;
 
         /// <summary>
-        /// ローカル座標を基準にした回転かどうか。
-        /// </summary>
-        public bool localPosition = true;
-
-        /// <summary>
         /// ローカル座標での回転かどうか。
         /// </summary>
-        public bool localRotation = true;
+        public bool rotationAxisIsLocal = true;
 
         #endregion Field
+
+        #region Method
 
         /// <summary>
         /// 回転します。
@@ -39,6 +36,7 @@ namespace ObjectController
             base.transform.RotateAround(GetRotationPoint(),
                                         GetRotationAxis(),
                                         rotateAngleDegree);
+
             return rotateAngleDegree;
         }
 
@@ -61,9 +59,11 @@ namespace ObjectController
         /// </returns>
         protected virtual Vector3 GetRotationAxis()
         {
-            return this.localRotation ?
+            return this.rotationAxisIsLocal ?
                    base.transform.localRotation * this.rotationAxis :
                    this.rotationAxis;
         }
+
+        #endregion Method
     }
 }

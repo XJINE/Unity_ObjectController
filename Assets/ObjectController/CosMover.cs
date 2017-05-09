@@ -5,7 +5,7 @@ namespace ObjectController
     /// <summary>
     /// Cos の軌道 (-1 ~ 1) で動きます。
     /// </summary>
-    public class CosWalker : MonoBehaviour
+    public class CosMover : MonoBehaviour
     {
         #region Field
 
@@ -31,6 +31,8 @@ namespace ObjectController
 
         #endregion Field
 
+        #region Method
+
         /// <summary>
         /// 更新時に呼び出されます。
         /// </summary>
@@ -41,5 +43,7 @@ namespace ObjectController
                                     * Mathf.Cos(Time.time * speed)
                                     * scale;
         }
+
+        #endregion Method
     }
 }

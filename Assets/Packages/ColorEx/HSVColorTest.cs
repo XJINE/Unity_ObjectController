@@ -64,7 +64,7 @@ public class HSVColorTest : MonoBehaviour
         if (this.lerpRatio == 1)
         {
             this.hsvColor     = this.lerpHSVColor;
-            this.lerpHSVColor = new HSVColor(HueColorLibrary.GetRandomHueColors360Standard());
+            this.lerpHSVColor = new HSVColor(HSVColorLibrary.GetRandomHueColors360Standard());
 
             this.lerpDurationSecCounter = 0;
         }

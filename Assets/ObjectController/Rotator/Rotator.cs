@@ -64,7 +64,7 @@ namespace ObjectController
             if (this.rotateSpeed != this.previousRotateSpeed)
             {
                 this.totalRotateAngleDegree = 0;
-                this.previousRotateSpeed    =  this.rotateSpeed;
+                this.previousRotateSpeed = this.rotateSpeed;
             }
 
             this.totalRotateAngleDegree += rotateAngleDegree;

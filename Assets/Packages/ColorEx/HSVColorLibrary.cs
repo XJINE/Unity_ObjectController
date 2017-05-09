@@ -5,7 +5,7 @@ namespace ColorEx.ColorLibrary
     /// <summary>
     /// HSV 色空間の色のセットを提供します。
     /// </summary>
-    public static class HueColorLibrary
+    public static class HSVColorLibrary
     {
         #region Field
 
@@ -772,7 +772,7 @@ namespace ColorEx.ColorLibrary
         /// </returns>
         public static Color[] GetHueColors360StandardSet(int numOfColors)
         {
-            return GetHueColors360(HueColorLibrary.HueColors360Standard, numOfColors);
+            return GetHueColors360(HSVColorLibrary.HueColors360Standard, numOfColors);
         }
 
         /// <summary>
@@ -786,7 +786,7 @@ namespace ColorEx.ColorLibrary
         /// </returns>
         public static Color[] GetHueColors360HalfAlphaSet(int numOfColors)
         {
-            return GetHueColors360(HueColorLibrary.HueColors360HalfAlpha, numOfColors);
+            return GetHueColors360(HSVColorLibrary.HueColors360HalfAlpha, numOfColors);
         }
 
         /// <summary>
@@ -826,8 +826,8 @@ namespace ColorEx.ColorLibrary
         /// </returns>
         public static Color GetRandomHueColors360Standard()
         {
-            return HueColorLibrary.HueColors360Standard
-                [Random.Range(0, HueColorLibrary.HueColors360StandardLength)];
+            return HSVColorLibrary.HueColors360Standard
+                [Random.Range(0, HSVColorLibrary.HueColors360StandardLength)];
         }
 
         /// <summary>
@@ -838,8 +838,8 @@ namespace ColorEx.ColorLibrary
         /// </returns>
         public static Color GetRandomHueColors360HalfAlpha()
         {
-            return HueColorLibrary.HueColors360HalfAlpha
-                [Random.Range(0, HueColorLibrary.HueColors360StandardLength)];
+            return HSVColorLibrary.HueColors360HalfAlpha
+                [Random.Range(0, HSVColorLibrary.HueColors360StandardLength)];
         }
 
         #endregion Method
