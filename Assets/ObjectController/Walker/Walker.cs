@@ -4,45 +4,69 @@ using UnityEngine.Events;
 namespace ObjectController
 {
     /// <summary>
-    /// 目的地に向かって移動します。
+    /// 目的地に向かって移動します.
     /// </summary>
     public class Walker : MonoBehaviour
     {
         #region Field
 
         /// <summary>
-        /// 目的地。
+        /// Gizmo を描画するかどうか.
+        /// </summary>
+        public bool drawGizmos = true;
+
+        /// <summary>
+        /// Gizmo の色.
+        /// </summary>
+        public Color gizmoColor = Color.white;
+
+        /// <summary>
+        /// 目的地.
         /// </summary>
         public Vector3 target = Vector3.zero;
 
         /// <summary>
-        /// 移動速度。
+        /// 移動速度.
         /// </summary>
         public float moveSpeed = 10;
 
         /// <summary>
-        /// 目的地の方を向くかどうか。
+        /// 目的地の方を向くかどうか.
         /// </summary>
         public bool lookAtTarget = true;
 
         /// <summary>
-        /// 回転速度。
+        /// 回転速度.
         /// </summary>
         public float rotationSpeed = 10;
 
         /// <summary>
-        /// 次の目的地に行くかどうか。
+        /// 次の目的地に行くかどうか.
         /// </summary>
         public bool goToNextTarget = true;
 
         /// <summary>
-        /// 目的地に到着したときのイベントハンドラ。
+        /// 目的地に到着したときのイベントハンドラ.
         /// </summary>
         public UnityEvent arrivedEventHandler;
+
+        /// <summary>
+        /// キャッシュされた Transform.
+        /// </summary>
+        [HideInInspector]
+        public new Transform transform;
 
         #endregion Field
 
         #region Method
+
+        /// <summary>
+        /// 初期化時に呼び出されます。
+        /// </summary>
+        protected virtual void Awake()
+        {
+            this.transform = base.transform;
+        }
 
         /// <summary>
         /// 開始時に呼び出されます。
@@ -51,7 +75,7 @@ namespace ObjectController
         {
             if (this.lookAtTarget)
             {
-                base.transform.LookAt(this.target);
+                this.transform.LookAt(this.target);
             }
         }
 
@@ -67,6 +91,22 @@ namespace ObjectController
         }
 
         /// <summary>
+        /// Gizmo の描画時に呼び出されます。
+        /// </summary>
+        protected virtual void OnDrawGizmos()
+        {
+            if (!this.drawGizmos)
+            {
+                return;
+            }
+
+            Color previousColor = Gizmos.color;
+            Gizmos.color = this.gizmoColor;
+            Gizmos.DrawLine(this.transform.position, this.target);
+            Gizmos.color = previousColor;
+        }
+
+        /// <summary>
         /// 移動します。
         /// </summary>
         /// <returns>
@@ -74,7 +114,7 @@ namespace ObjectController
         /// </returns>
         protected virtual bool Walk()
         {
-            Vector3 currentPosition = base.transform.position;
+            Vector3 currentPosition = this.transform.position;
 
             if (currentPosition == this.target && this.goToNextTarget)
             {
@@ -89,12 +129,12 @@ namespace ObjectController
                 Vector3 direction = this.target - nextPosition;
                 Quaternion rotation = Quaternion.LookRotation(direction);
 
-                base.transform.rotation = Quaternion.Slerp(base.transform.rotation,
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
                                                            rotation,
                                                            Time.deltaTime * this.rotationSpeed);
             }
 
-            base.transform.position = nextPosition;
+            this.transform.position = nextPosition;
 
             return nextPosition == this.target && currentPosition != this.target;
         }
