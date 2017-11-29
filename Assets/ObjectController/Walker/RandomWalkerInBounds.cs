@@ -3,14 +3,14 @@
 namespace ObjectController
 {
     /// <summary>
-    /// 
+    /// Bounds の中を移動する Walker.
     /// </summary>
     public class RandomWalkerInBounds : Walker
     {
         #region Field
 
         /// <summary>
-        /// 移動する Bounds.
+        /// 移動できる Bounds.
         /// </summary>
         public BoundsBehaviour[] boundsBehaviours;
 
@@ -37,6 +37,8 @@ namespace ObjectController
             Ray ray = new Ray(this.transform.position, randomPoint - this.transform.position);
 
             bool loop = true;
+            int count = 0;
+            int maxCount = 100;
 
             while (loop)
             {
@@ -51,6 +53,13 @@ namespace ObjectController
                         loop = true;
                         break;
                     }
+                }
+
+                count++;
+
+                if (count == maxCount)
+                {
+                    break;
                 }
             }
 
