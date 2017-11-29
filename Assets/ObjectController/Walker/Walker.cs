@@ -100,6 +100,11 @@ namespace ObjectController
                 return;
             }
 
+            if (this.transform == null)
+            {
+                return;
+            }
+
             Color previousColor = Gizmos.color;
             Gizmos.color = this.gizmoColor;
             Gizmos.DrawLine(this.transform.position, this.target);

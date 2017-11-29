@@ -19,12 +19,6 @@ namespace ObjectController
         /// </summary>
         public BoundsBehaviour[] boundsBehaviourKeepout;
 
-        /// <summary>
-        /// 最終的な目的地。
-        /// </summary>
-        [SerializeField]
-        protected Vector3 finalTarget;
-
         #endregion Field
 
         #region Method

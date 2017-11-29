@@ -35,8 +35,10 @@ namespace ObjectController
         /// <summary>
         /// Gizmo の描画時に呼び出されます。
         /// </summary>
-        protected virtual void OnDrawGizmos()
+        protected override void OnDrawGizmos()
         {
+            base.OnDrawGizmos();
+
             Color previousGizmosColor = Gizmos.color;
 
             Gizmos.color = Color.white;
