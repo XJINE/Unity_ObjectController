@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using ColorEx;
-using ColorEx.ColorLibrary;
 
 public class HSVColorTest : MonoBehaviour
 {
